@@ -192,3 +192,318 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
     .testimonial { padding: 0 1rem; }
     .slider-btn { display: none; } /* Ocultar botones en móvil, el slider será automático */
 }
+
+
+/* =================================
+   ... (TODO TU CSS ANTERIOR VA AQUÍ) ...
+   ================================= */
+
+/* =================================
+   NUEVOS ESTILOS PARA PÁGINA DE LÁSER
+   ================================= */
+
+.hero-page {
+    height: 50vh;
+    position: relative;
+    color: var(--light-color);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.hero-page::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+.hero-page-content {
+    position: relative;
+    z-index: 2;
+    padding: 2rem;
+}
+.hero-page-content h1 { font-size: 5rem; }
+.hero-page-content p { font-size: 2rem; font-family: var(--font-secondary); font-style: italic; opacity: 0.9; }
+
+.grid-2-cols-feature.reverse .feature-img { order: 2; }
+.grid-2-cols-feature.reverse .feature-text { order: 1; }
+
+/* -- Estilos para la Tabla de Precios Interactiva -- */
+.pricing-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 4rem;
+    background-color: #e9ecef;
+    border-radius: 50px;
+    padding: 5px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+.tab-link {
+    padding: 1rem 3rem;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 1.6rem;
+    font-weight: 600;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    color: var(--secondary-color);
+}
+.tab-link.active {
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.pricing-content {
+    display: none;
+}
+.pricing-content.active {
+    display: block;
+}
+
+.pricing-zone-title {
+    font-family: var(--font-primary);
+    font-size: 2.2rem;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--primary-color);
+}
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+.price-card {
+    background: var(--light-color);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+.price-card h4 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--dark-color);
+}
+.price-card .prices {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+.price-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 6px;
+    background: var(--gray-bg);
+    flex-grow: 1;
+    text-align: center;
+}
+.price-item b:first-child {
+    font-size: 1.4rem;
+    color: var(--secondary-color);
+}
+.price-item b:last-child {
+    font-size: 2rem;
+    color: var(--dark-color);
+}
+.price-item.popular {
+    background-color: var(--primary-color);
+    color: var(--dark-color);
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(255, 164, 246, 0.4);
+}
+.price-item.popular b {
+    color: var(--dark-color);
+}
+
+/* -- Estilos para los Packs -- */
+.packs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 3rem;
+}
+.pack-card {
+    background: var(--gray-bg);
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 3rem;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.pack-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+.pack-title { font-size: 2.2rem; font-weight: 700; font-family: var(--font-primary); }
+.pack-price { font-size: 4rem; font-weight: 700; color: var(--primary-color); margin: 1.5rem 0; }
+.pack-price span { font-size: 1.6rem; font-weight: 400; color: var(--secondary-color); }
+.pack-content ul { margin-bottom: 1rem; }
+.pack-content li, .pack-content p { font-size: 1.5rem; line-height: 1.6; }
+.pack-note { text-align: center; margin-top: 3rem; font-style: italic; color: var(--secondary-color); }
+
+@media (max-width: 992px) {
+    .grid-2-cols-feature.reverse { grid-template-columns: 1fr; }
+    .grid-2-cols-feature.reverse .feature-img { order: 1; }
+    .grid-2-cols-feature.reverse .feature-text { order: 2; }
+}
+@media (max-width: 768px) {
+    .hero-page-content h1 { font-size: 4rem; }
+    .price-card .prices { flex-direction: column; }
+    .price-item.popular { transform: scale(1); }
+}
+
+/* =================================
+   ... (TODO TU CSS ANTERIOR VA AQUÍ) ...
+   ================================= */
+
+/* =================================
+   ESTILOS PARA LA LISTA DE SERVICIOS (PÁGINA UÑAS)
+   ================================= */
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 3rem;
+}
+
+.service-card-item {
+    background: var(--light-color);
+    padding: 3rem;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.service-card-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.service-card-item h3 {
+    font-size: 2.2rem;
+    color: var(--dark-color);
+    margin-bottom: 1.5rem;
+}
+
+.service-card-item p {
+    font-size: 1.6rem;
+    color: var(--secondary-color);
+    line-height: 1.6;
+}
+
+
+
+/* =================================
+   ... (TODO TU CSS ANTERIOR VA AQUÍ) ...
+   ================================= */
+
+/* =================================
+   ESTILOS PÁGINA DE CONTACTO
+   ================================= */
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 6rem;
+    align-items: flex-start;
+}
+
+.contact-info h2 {
+    font-size: 3.6rem;
+    margin-bottom: 2rem;
+}
+.contact-info .info-item {
+    margin-top: 2.5rem;
+}
+.contact-info .info-item h4 {
+    font-family: var(--font-primary);
+    font-size: 1.8rem;
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+.contact-info .info-item p {
+    font-size: 1.6rem;
+    color: var(--secondary-color);
+}
+.contact-info .info-item a:hover {
+    color: var(--primary-color);
+}
+
+.contact-form-wrapper {
+    background: var(--light-color);
+    padding: 4rem;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.contact-form .form-group {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1.6rem;
+    font-family: var(--font-primary);
+}
+.contact-form input:focus, .contact-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(255, 164, 246, 0.3);
+}
+.contact-form textarea {
+    resize: vertical;
+}
+.form-group.captcha {
+    align-items: center;
+    flex-wrap: wrap;
+}
+.form-group.captcha label {
+    flex-basis: 100%;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+.form-group.captcha span {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+.form-group.captcha input {
+    width: 100px;
+    margin-left: 1rem;
+}
+
+.contact-form button {
+    width: 100%;
+    padding: 1.8rem;
+}
+#form-message {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.map-section {
+    width: 100%;
+    height: 450px;
+}
+
+@media (max-width: 992px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 576px) {
+    .contact-form .form-group {
+        flex-direction: column;
+    }
+    .contact-form-wrapper {
+        padding: 2rem;
+    }
+}
