@@ -48,28 +48,95 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // --- 4. FILTRO DE PORTFOLIO (TABS) ---
-    const filterContainer = document.querySelector('.portfolio-filters');
-    if (filterContainer) {
-        const portfolioItems = document.querySelectorAll('.portfolio-item');
-        filterContainer.addEventListener('click', (e) => {
-            if (e.target.classList.contains('filter-btn')) {
-                filterContainer.querySelector('.active').classList.remove('active');
-                e.target.classList.add('active');
-                const filterValue = e.target.getAttribute('data-filter');
-                portfolioItems.forEach(item => {
-                    item.classList.toggle('hide', !(item.dataset.category === filterValue || filterValue === 'all'));
-                });
-            }
+    // --- 4. NUEVO SLIDER DE PORTFOLIO CON AUTOPLAY Y PAGINACIÓN ---
+    function initializePortfolioSlider() {
+        const sliderWrapper = document.querySelector('.portfolio-slider-wrapper');
+        const slider = document.querySelector('.portfolio-slider');
+        const pagination = document.querySelector('.portfolio-pagination');
+        if (!slider || !pagination) return;
+        
+        const slides = Array.from(slider.children);
+        let currentIndex = 0;
+        let autoplayInterval;
+
+        // --- Crear Paginación ---
+        slides.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.classList.add('pagination-dot');
+            dot.addEventListener('click', () => {
+                goToSlide(i);
+                resetAutoplay();
+            });
+            pagination.appendChild(dot);
         });
+        const dots = Array.from(pagination.children);
+
+        // --- Funciones del Slider ---
+        function getSlidesInView() {
+            if (window.innerWidth <= 576) return 1;
+            if (window.innerWidth <= 992) return 2;
+            return 3;
+        }
+
+        function updateSlider() {
+            const slideWidth = slider.querySelector('.portfolio-slide').offsetWidth;
+            slider.style.transform = `translateX(${-currentIndex * slideWidth}px)`;
+            
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIndex);
+            });
+        }
+
+        function goToSlide(index) {
+            const totalSlides = slides.length;
+            const slidesInView = getSlidesInView();
+            // Asegurarse de no dejar un espacio en blanco al final
+            if (index > totalSlides - slidesInView) {
+                index = totalSlides - slidesInView;
+            }
+            if (index < 0) {
+                index = 0;
+            }
+            currentIndex = index;
+            updateSlider();
+        }
+        
+        function nextSlide() {
+            const totalSlides = slides.length;
+            const slidesInView = getSlidesInView();
+            let nextIndex = currentIndex + 1;
+            if (nextIndex > totalSlides - slidesInView) {
+                nextIndex = 0; // Vuelve al principio
+            }
+            goToSlide(nextIndex);
+        }
+
+        function startAutoplay() {
+            autoplayInterval = setInterval(nextSlide, 2500);
+        }
+
+        function resetAutoplay() {
+            clearInterval(autoplayInterval);
+            startAutoplay();
+        }
+
+        // --- Event Listeners ---
+        sliderWrapper.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
+        sliderWrapper.addEventListener('mouseleave', startAutoplay);
+        window.addEventListener('resize', () => goToSlide(0)); // Reset en resize
+
+        // --- Iniciar ---
+        goToSlide(0);
+        startAutoplay();
     }
+    initializePortfolioSlider();
 
     // --- 5. SLIDER INTERACTIVO DE TESTIMONIOS ---
     const testimonialsSlider = document.querySelector('.testimonial-slider-interactive');
     if(testimonialsSlider){
         const slides = testimonialsSlider.querySelectorAll('.testimonial');
-        const nextBtn = document.querySelector('.slider-btn.next');
-        const prevBtn = document.querySelector('.slider-btn.prev');
+        const nextBtn = document.querySelector('.testimonials-wrapper .slider-btn.next');
+        const prevBtn = document.querySelector('.testimonials-wrapper .slider-btn.prev');
         if (slides.length > 1) {
             let currentSlide = 0;
             const showSlide = (index) => slides.forEach((s, i) => s.classList.toggle('active', i === index));
@@ -81,23 +148,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // --- 6. NUEVO: LÓGICA PARA TABS DE PRECIOS EN PÁGINA DE LÁSER ---
+    // --- 6. LÓGICA PARA TABS DE PRECIOS EN PÁGINA DE LÁSER ---
     const pricingTabsContainer = document.querySelector('.pricing-tabs');
     if (pricingTabsContainer) {
-        const tabLinks = pricingTabsContainer.querySelectorAll('.tab-link');
-        const pricingContents = document.querySelectorAll('.pricing-content');
-
-        tabLinks.forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Desactivar todos
-                tabLinks.forEach(link => link.classList.remove('active'));
-                pricingContents.forEach(content => content.classList.remove('active'));
-
-                // Activar el seleccionado
-                tab.classList.add('active');
-                document.getElementById(tab.dataset.target).classList.add('active');
-            });
-        });
+        // ... (código existente)
     }
 
     // --- 7. ANIMACIONES AL HACER SCROLL ---
@@ -108,47 +162,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, { threshold: 0.1 });
     animatedElements.forEach(el => observer.observe(el));
-});
-
-
-
-// ... (pega esto al final de tu archivo script.js, ANTES del último paréntesis) ...
-
+    
     // --- 8. LÓGICA PARA FORMULARIO DE CONTACTO ---
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
-        const captchaQuestionEl = document.getElementById('captcha-question');
-        const captchaInput = document.getElementById('captcha');
-        const formMessage = document.getElementById('form-message');
-        
-        let num1 = Math.ceil(Math.random() * 10);
-        let num2 = Math.ceil(Math.random() * 5);
-        let correctAnswer = num1 + num2;
-
-        captchaQuestionEl.textContent = `${num1} + ${num2} = `;
-
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevenimos el envío real para validarlo primero
-
-            const userAnswer = parseInt(captchaInput.value, 10);
-            
-            if (userAnswer !== correctAnswer) {
-                formMessage.textContent = "El resultado de la suma es incorrecto. Inténtalo de nuevo.";
-                formMessage.style.color = 'red';
-            } else {
-                // Si la validación es correcta, aquí es donde enviarías el formulario.
-                // Para este ejemplo, solo mostraremos un mensaje de éxito.
-                // En un caso real, descomentarías la línea 'contactForm.submit()' o usarías AJAX.
-                
-                formMessage.textContent = "¡Mensaje enviado correctamente! Gracias por contactarnos.";
-                formMessage.style.color = 'green';
-                contactForm.reset(); // Limpia el formulario
-
-                // Genera una nueva pregunta para el próximo intento
-                num1 = Math.ceil(Math.random() * 10);
-                num2 = Math.ceil(Math.random() * 5);
-                correctAnswer = num1 + num2;
-                captchaQuestionEl.textContent = `${num1} + ${num2} = `;
-            }
-        });
+        // ... (código existente)
     }
+});
