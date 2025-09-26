@@ -48,68 +48,49 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // --- 4. FILTRO DE GALERÍA CON "VER MÁS" ---
+    // --- 4. FILTRO DE GALERÍA MODIFICADO ---
     function initializePortfolioFilter() {
         const tabs = document.querySelectorAll('.portfolio-tabs .tab-link');
         const items = document.querySelectorAll('.portfolio-grid .portfolio-item');
         const loadMoreBtn = document.getElementById('load-more-btn');
-        const itemsToShow = 6;
 
-        if (!tabs.length || !items.length || !loadMoreBtn) return;
+        // Si no hay elementos, no hagas nada.
+        if (!tabs.length || !items.length) return;
 
-        // Función para mostrar items y gestionar el botón
-        function showItems(filter = 'all') {
-            const filteredItems = [];
-            
-            // Ocultar todos los items primero
-            items.forEach(item => {
-                item.classList.add('hidden');
-                const category = item.getAttribute('data-category');
-                if (filter === 'all' || filter === category) {
-                    filteredItems.push(item);
-                }
-            });
-
-            // Mostrar los primeros 6 (o menos)
-            filteredItems.slice(0, itemsToShow).forEach(item => {
-                item.classList.remove('hidden');
-            });
-
-            // Gestionar visibilidad del botón "Ver Más"
-            if (filter === 'all' && filteredItems.length > itemsToShow) {
-                loadMoreBtn.classList.remove('hidden');
-            } else {
-                loadMoreBtn.classList.add('hidden');
-            }
-            
-            // Si el filtro no es 'all', mostrar todos los items de esa categoría
-            if (filter !== 'all') {
-                 filteredItems.forEach(item => item.classList.remove('hidden'));
-            }
+        // Ocultamos el botón "Ver Más" ya que no se usará.
+        if (loadMoreBtn) {
+            loadMoreBtn.style.display = 'none';
         }
 
-        // Event listener para las pestañas
+        // Función para mostrar los items según el filtro.
+        function showItems(filter) {
+            items.forEach(item => {
+                const category = item.getAttribute('data-category');
+                // Si la categoría del item coincide con el filtro, se muestra. Si no, se oculta.
+                if (filter === category) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        }
+
+        // Event listener para las pestañas.
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
+                // Actualiza la clase 'active' en la pestaña clickeada.
                 tabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
+                
+                // Obtiene el filtro y muestra los items correspondientes.
                 const filter = tab.getAttribute('data-filter');
                 showItems(filter);
             });
         });
 
-        // Event listener para el botón "Ver Más"
-        loadMoreBtn.addEventListener('click', () => {
-            items.forEach(item => {
-                if(item.getAttribute('data-category')) { // Asegura que solo se muestren los items de la galería
-                    item.classList.remove('hidden');
-                }
-            });
-            loadMoreBtn.classList.add('hidden');
-        });
-
-        // Estado inicial al cargar la página
-        showItems('all');
+        // Estado inicial al cargar la página: muestra "uñas".
+        // Esto coincide con el botón que tiene la clase 'active' en el HTML.
+        showItems('unas');
     }
     initializePortfolioFilter();
 
