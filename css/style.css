@@ -136,7 +136,7 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
 .cta-banner::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
 .cta-banner .container { position: relative; z-index: 2; }
 .cta-banner h5 { font-size: 2.4rem; font-weight: 400; }
-.cta-banner h2 { font-size: 5rem; margin: 1rem 0 2rem; }
+.cta-banner h2 { font-size: 3rem; margin: 1rem 0 2rem; }
 
 /* =================================
    FOOTER
@@ -246,3 +246,133 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
 .map-section { width: 100%; height: 450px; }
 @media (max-width: 992px) { .contact-grid { grid-template-columns: 1fr; } }
 @media (max-width: 576px) { .contact-form .form-group { flex-direction: column; } .contact-form-wrapper { padding: 2rem; } }
+
+
+/* =================================
+   PÁGINA DE LÁSER - PRECIOS (Compacto)
+   ================================= */
+.pricing-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem; /* Reducido */
+    margin-bottom: 3rem; /* Reducido */
+}
+.pricing-tabs .tab-link {
+    padding: 0.8rem 2rem; /* Reducido */
+    font-size: 1.4rem; /* Reducido */
+    border-radius: 50px;
+    border: 2px solid #ddd;
+    background: transparent;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    color: var(--secondary-color);
+}
+.pricing-tabs .tab-link:hover {
+    background-color: #f0f0f0;
+    border-color: #ccc;
+}
+.pricing-tabs .tab-link.active {
+    background-color: var(--primary-color);
+    color: var(--dark-color);
+    border-color: var(--primary-color);
+}
+.pricing-content {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+.pricing-content.active {
+    display: block;
+}
+.pricing-zone-title {
+    font-size: 2.4rem; /* Reducido */
+    text-align: center;
+    margin-top: 2.5rem; /* Reducido */
+    margin-bottom: 2rem; /* Reducido */
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.8rem; /* Reducido */
+}
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Mínimo reducido */
+    gap: 1.5rem; /* Reducido */
+}
+.price-card {
+    background: var(--light-color);
+    padding: 2rem; /* Reducido */
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+}
+.price-card h4 {
+    font-size: 1.8rem; /* Reducido */
+    margin-bottom: 1.5rem; /* Reducido */
+}
+.prices {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Reducido */
+}
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem; /* Reducido */
+    border: 1px solid #eee;
+    border-radius: 6px;
+    font-size: 1.4rem; /* Reducido */
+}
+.price-item b {
+    color: var(--dark-color);
+}
+.price-item.popular {
+    border-color: var(--primary-color);
+    background-color: #fff8fe;
+}
+
+/* =================================
+   PÁGINA DE LÁSER - PACKS (Compacto)
+   ================================= */
+.packs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem; /* Reducido */
+}
+.pack-card {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    text-align: center;
+    padding: 2rem; /* Reducido */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+}
+.pack-title {
+    font-size: 2rem; /* Reducido */
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+.pack-price {
+    font-size: 3.8rem; /* Reducido */
+    font-weight: 800;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem; /* Reducido */
+}
+.pack-price span {
+    font-size: 1.5rem; /* Reducido */
+    font-weight: 400;
+    color: var(--secondary-color);
+}
+.pack-content ul {
+    list-style: none;
+    padding-left: 0;
+}
+.pack-content li, .pack-content p {
+    margin-bottom: 0.5rem; /* Reducido */
+    color: #555;
+    font-size: 1.5rem; /* Reducido */
+}
+.pack-note {
+    text-align: center;
+    margin-top: 2rem; /* Reducido */
+    font-size: 1.4rem;
+    color: var(--secondary-color);
+    font-style: italic;
+}

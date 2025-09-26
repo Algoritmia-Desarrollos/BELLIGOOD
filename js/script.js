@@ -127,3 +127,27 @@ document.addEventListener('DOMContentLoaded', function() {
         // ... (código existente, no se muestra por brevedad)
     }
 });
+
+
+// --- 8. LÓGICA PARA PESTAÑAS DE PRECIOS (LÁSER) ---
+    function initializePricingTabs() {
+        const tabs = document.querySelectorAll('.pricing-tabs .tab-link');
+        const contents = document.querySelectorAll('.pricing-content');
+
+        if (!tabs.length || !contents.length) return;
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetId = tab.getAttribute('data-target');
+
+                // Ocultar todos los contenidos y quitar active de las pestañas
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+
+                // Mostrar el contenido y la pestaña seleccionada
+                tab.classList.add('active');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+    }
+    initializePricingTabs(); // Llamar a la función
