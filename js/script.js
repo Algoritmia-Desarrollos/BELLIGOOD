@@ -48,88 +48,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // --- 4. NUEVO SLIDER DE PORTFOLIO CON AUTOPLAY Y PAGINACIÓN ---
-    function initializePortfolioSlider() {
-        const sliderWrapper = document.querySelector('.portfolio-slider-wrapper');
-        const slider = document.querySelector('.portfolio-slider');
-        const pagination = document.querySelector('.portfolio-pagination');
-        if (!slider || !pagination) return;
-        
-        const slides = Array.from(slider.children);
-        let currentIndex = 0;
-        let autoplayInterval;
-
-        // --- Crear Paginación ---
-        slides.forEach((_, i) => {
-            const dot = document.createElement('button');
-            dot.classList.add('pagination-dot');
-            dot.addEventListener('click', () => {
-                goToSlide(i);
-                resetAutoplay();
-            });
-            pagination.appendChild(dot);
-        });
-        const dots = Array.from(pagination.children);
-
-        // --- Funciones del Slider ---
-        function getSlidesInView() {
-            if (window.innerWidth <= 576) return 1;
-            if (window.innerWidth <= 992) return 2;
-            return 3;
-        }
-
-        function updateSlider() {
-            const slideWidth = slider.querySelector('.portfolio-slide').offsetWidth;
-            slider.style.transform = `translateX(${-currentIndex * slideWidth}px)`;
-            
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentIndex);
-            });
-        }
-
-        function goToSlide(index) {
-            const totalSlides = slides.length;
-            const slidesInView = getSlidesInView();
-            // Asegurarse de no dejar un espacio en blanco al final
-            if (index > totalSlides - slidesInView) {
-                index = totalSlides - slidesInView;
-            }
-            if (index < 0) {
-                index = 0;
-            }
-            currentIndex = index;
-            updateSlider();
-        }
-        
-        function nextSlide() {
-            const totalSlides = slides.length;
-            const slidesInView = getSlidesInView();
-            let nextIndex = currentIndex + 1;
-            if (nextIndex > totalSlides - slidesInView) {
-                nextIndex = 0; // Vuelve al principio
-            }
-            goToSlide(nextIndex);
-        }
-
-        function startAutoplay() {
-            autoplayInterval = setInterval(nextSlide, 2500);
-        }
-
-        function resetAutoplay() {
-            clearInterval(autoplayInterval);
-            startAutoplay();
-        }
-
-        // --- Event Listeners ---
-        sliderWrapper.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
-        sliderWrapper.addEventListener('mouseleave', startAutoplay);
-        window.addEventListener('resize', () => goToSlide(0)); // Reset en resize
-
-        // --- Iniciar ---
-        goToSlide(0);
-        startAutoplay();
-    }
-    initializePortfolioSlider();
+    // --- 4. SLIDER DE PORTFOLIO AHORA MANEJADO POR CSS ---
+    // La función initializePortfolioSlider() ha sido eliminada.
 
     // --- 5. SLIDER INTERACTIVO DE TESTIMONIOS ---
     const testimonialsSlider = document.querySelector('.testimonial-slider-interactive');
@@ -151,7 +71,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- 6. LÓGICA PARA TABS DE PRECIOS EN PÁGINA DE LÁSER ---
     const pricingTabsContainer = document.querySelector('.pricing-tabs');
     if (pricingTabsContainer) {
-        // ... (código existente)
+        const tabs = pricingTabsContainer.querySelectorAll('.tab-link');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = document.getElementById(tab.dataset.target);
+                
+                document.querySelectorAll('.pricing-content.active').forEach(c => c.classList.remove('active'));
+                document.querySelectorAll('.tab-link.active').forEach(t => t.classList.remove('active'));
+
+                target.classList.add('active');
+                tab.classList.add('active');
+            });
+        });
     }
 
     // --- 7. ANIMACIONES AL HACER SCROLL ---
@@ -166,6 +97,27 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- 8. LÓGICA PARA FORMULARIO DE CONTACTO ---
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
-        // ... (código existente)
+        const num1 = Math.ceil(Math.random() * 10);
+        const num2 = Math.ceil(Math.random() * 5);
+        const question = `${num1} + ${num2}`;
+        const answer = num1 + num2;
+
+        document.getElementById('captcha-question').textContent = question;
+        
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const userAnswer = parseInt(document.getElementById('captcha').value);
+            const formMessage = document.getElementById('form-message');
+
+            if(userAnswer === answer) {
+                // Aquí iría el código para enviar el formulario (AJAX/Fetch)
+                formMessage.textContent = '¡Mensaje enviado correctamente!';
+                formMessage.style.color = 'green';
+                contactForm.reset(); // Limpia el formulario
+            } else {
+                formMessage.textContent = 'La suma es incorrecta. Inténtalo de nuevo.';
+                formMessage.style.color = 'red';
+            }
+        });
     }
 });

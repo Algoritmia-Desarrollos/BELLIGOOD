@@ -195,10 +195,6 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
 
 
 /* =================================
-   ... (TODO TU CSS ANTERIOR VA AQUÍ) ...
-   ================================= */
-
-/* =================================
    NUEVOS ESTILOS PARA PÁGINA DE LÁSER
    ================================= */
 
@@ -356,12 +352,9 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
     .price-item.popular { transform: scale(1); }
 }
 
-/* =================================
-   ... (TODO TU CSS ANTERIOR VA AQUÍ) ...
-   ================================= */
 
 /* =================================
-   ESTILOS PARA LA LISTA DE SERVICIOS (PÁGINA UÑAS)
+   ESTILOS PARA LA LISTA DE SERVICIOS
    ================================= */
 
 .service-grid {
@@ -394,12 +387,6 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
     color: var(--secondary-color);
     line-height: 1.6;
 }
-
-
-
-/* =================================
-   ... (TODO TU CSS ANTERIOR VA AQUÍ) ...
-   ================================= */
 
 /* =================================
    ESTILOS PÁGINA DE CONTACTO
@@ -509,33 +496,41 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
 }
 
 /* =================================
-   ... (TODO TU CSS ANTERIOR VA AQUÍ HASTA LLEGAR A LOS ESTILOS DE PORTFOLIO) ...
-   ================================= */
-
-/* =================================
-   PORTFOLIO SLIDER (INDEX)
+   PORTFOLIO SLIDER (INDEX) - MODIFICADO PARA SCROLL INFINITO
    ================================= */
 
 .portfolio-slider-wrapper {
-    position: relative;
     width: 100%;
-    margin: 0 auto;
     overflow: hidden;
-    padding: 0 1rem; /* Espacio para que las imágenes no se peguen a los bordes */
+    padding: 0;
+    -webkit-mask-image: linear-gradient(to right, transparent, white 10%, white 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, white 10%, white 90%, transparent);
 }
-.portfolio-slider-wrapper:hover .slider-btn { /* Opcional: mostrar flechas en hover */
-    opacity: 1;
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-250px * 12));
+    }
 }
 
 .portfolio-slider {
     display: flex;
-    transition: transform 0.5s ease-in-out;
+    width: calc(250px * 24);
+    animation: scroll 60s linear infinite;
+}
+
+.portfolio-slider:hover {
+    animation-play-state: paused;
 }
 
 .portfolio-slide {
-    min-width: calc(100% / 3); /* Muestra 3 imágenes en desktop */
+    width: 250px;
+    flex-shrink: 0;
     padding: 0 1rem;
-    box-sizing: border-box;
+    box-sizing: content-box;
 }
 
 .portfolio-slide img {
@@ -546,51 +541,10 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
     display: block;
 }
 
-/* PAGINACIÓN */
 .portfolio-pagination {
-    text-align: center;
-    margin-top: 2.5rem;
-}
-.pagination-dot {
-    display: inline-block;
-    height: 12px;
-    width: 12px;
-    background-color: #ddd;
-    border-radius: 50%;
-    margin: 0 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-.pagination-dot.active {
-    background-color: var(--primary-color);
+    display: none;
 }
 
-/* Se elimina el caption y los botones laterales del CSS anterior */
-#portfolio .slider-btn { display: none; } /* Ocultamos las flechas */
-
-
-/* =================================
-   ... (AQUÍ CONTINÚA EL RESTO DE TU CSS: TESTIMONIOS, FOOTER, ETC.) ...
-   ================================= */
-
-
-/* =================================
-   AJUSTES RESPONSIVE (AÑADE ESTOS CAMBIOS DENTRO DE LOS MEDIA QUERIES EXISTENTES)
-   ================================= */
-
-@media (max-width: 992px) {
-    /* ... otros estilos ... */
-    .portfolio-slide {
-        min-width: 50%; /* Muestra 2 imágenes en tablet */
-    }
-}
-@media (max-width: 576px) {
-    /* ... otros estilos ... */
-    .portfolio-slide {
-        min-width: 100%; /* Muestra 1 imagen en móvil */
-        padding: 0 0.5rem;
-    }
-    .portfolio-slider-wrapper {
-        padding: 0;
-    }
+#portfolio .slider-btn { 
+    display: none; 
 }
