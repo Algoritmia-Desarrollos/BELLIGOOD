@@ -389,7 +389,7 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
 @media (max-width: 768px) {
     .slide-content h2 { font-size: 4rem; }
     .cta-banner h2 { font-size: 2.8rem; }
-    .hero-page-content h1 { font-size: 4rem; }
+    .hero-page-content h1 { font-size: 4rem !important; }
     .cta-banner h5 { font-size: 1.4rem;}
 }
 
