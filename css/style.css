@@ -18,7 +18,7 @@ body {
     font-size: 1.6rem;
     line-height: 1.6;
     color: var(--dark-color);
-    padding-top: var(--header-height); /* Añadido para que el contenido no quede debajo del header fijo */
+    padding-top: var(--header-height);
 }
 ul { list-style: none; }
 a { text-decoration: none; color: inherit; }
@@ -70,9 +70,9 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
     top: 0;
     left: 0;
     width: 100%;
-    background-color: var(--light-color); /* Fondo blanco fijo */
+    background-color: var(--light-color);
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Sombra para darle profundidad */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 .nav {
@@ -83,7 +83,7 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
 }
 
 .nav-logo img {
-    height: 45px; /* Ajusta el tamaño de tu logo si es necesario */
+    height: 45px;
 }
 
 .nav-list {
@@ -93,7 +93,7 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
 }
 
 .nav-link {
-    color: var(--dark-color); /* Color de texto oscuro para fondo blanco */
+    color: var(--dark-color);
     font-weight: 700;
     text-transform: uppercase;
     font-size: 1.4rem;
@@ -121,7 +121,6 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
     color: var(--primary-color);
 }
 
-/* Estilo para el botón de contacto */
 .btn--nav {
     padding: 0.8rem 2.4rem;
     border-width: 2px;
@@ -131,7 +130,7 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
 }
 
 .btn--nav:hover {
-    background-color: #e693de; /* Un rosa un poco más oscuro para el hover */
+    background-color: #e693de;
     border-color: #e693de;
     color: var(--dark-color);
 }
@@ -140,7 +139,7 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
 /* --- Menú Hamburguesa para Móvil --- */
 
 .nav-toggle {
-    display: none; /* Oculto en escritorio */
+    display: none;
     cursor: pointer;
     width: 22px;
     height: 18px;
@@ -154,21 +153,21 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
     position: absolute;
     width: 100%;
     height: 3px;
-    background-color: var(--dark-color); /* Líneas oscuras para verlas sobre fondo blanco */
+    background-color: var(--dark-color);
     left: 0;
     border-radius: 2px;
     transition: all 0.3s ease-in-out;
 }
 
 .nav-toggle span:nth-child(1) { top: 0; }
-.nav-toggle span:nth-child(2) { top: 7.5px; } /* Ajuste para centrar */
-.nav-toggle span:nth-child(3) { top: 15px; } /* Ajuste para alinear */
+.nav-toggle span:nth-child(2) { top: 7.5px; }
+.nav-toggle span:nth-child(3) { top: 15px; }
 
 
 /* =================================
    HERO SLIDER
    ================================= */
-.hero { height: 85vh; position: relative; color: var(--light-color); margin-top: calc(-1 * var(--header-height)); } /* Corregido para compensar el padding del body */
+.hero { height: 85vh; position: relative; color: var(--light-color); margin-top: calc(-1 * var(--header-height)); }
 .hero-slider .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.5s ease; display: flex; justify-content: center; align-items: center; text-align: center; }
 .hero-slider .slide.active { opacity: 1; }
 .slide::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.4); }
@@ -304,21 +303,27 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
    ================================= */
 
 @media (max-width: 992px) {
-    /* --- Estilos Responsivos para el Header --- */
+    .section {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    .section .container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
     .nav-list {
-        display: none; /* Oculta la lista de escritorio */
+        display: none;
     }
 
-    /* Muestra el botón de hamburguesa */
     .nav-toggle {
         display: block;
     }
     
-    /* Menú desplegable */
     .nav-menu {
         position: fixed;
-        top: var(--header-height); /* Empieza justo debajo del header */
-        left: -100%; /* Empieza oculto a la izquierda */
+        top: var(--header-height);
+        left: -100%;
         width: 100%;
         height: calc(100vh - var(--header-height));
         background-color: var(--light-color);
@@ -330,10 +335,9 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
     }
     
     .nav-menu.active {
-        left: 0; /* Muestra el menú */
+        left: 0;
     }
     
-    /* La lista de enlaces dentro del menú desplegable */
     .nav-menu .nav-list {
         display: flex;
         flex-direction: column;
@@ -345,7 +349,6 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
         font-size: 1.8rem;
     }
     
-    /* Animación del icono de hamburguesa a "X" */
     .nav-menu.active ~ .nav-toggle span:nth-child(1) {
         transform: rotate(45deg);
         top: 7.5px;
@@ -358,7 +361,6 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
         top: 7.5px;
     }
     
-    /* --- Otros estilos responsivos --- */
     .grid-2-cols-feature, .grid-2-cols-feature.reverse {
         grid-template-columns: 1fr;
     }
@@ -382,6 +384,13 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
     
     .grid-footer { grid-template-columns: 1fr; text-align: center; }
     .social-links { justify-content: center; }
+    
+    /* --- INICIO DE LA CORRECCIÓN --- */
+    /* Centra el logo en el footer en vista móvil */
+    .footer-logo {
+        margin: 0 auto 1.5rem;
+    }
+    /* --- FIN DE LA CORRECCIÓN --- */
     
     .contact-grid { grid-template-columns: 1fr; }
 }
@@ -446,7 +455,7 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
 .contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(255, 164, 246, 0.3); }
 .contact-form textarea { resize: vertical; }
 .contact-form button { width: 100%; padding: 1.8rem; }
-.map-section { width: 100%; height: 400px; padding: 0 2rem; } /* Padding añadido para responsive */
+.map-section { width: 100%; height: 400px; }
 
 
 /* =================================
