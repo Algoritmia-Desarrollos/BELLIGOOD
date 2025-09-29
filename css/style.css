@@ -388,7 +388,14 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
         margin: 0 auto 1.5rem;
     }
     
-    .contact-grid { grid-template-columns: 1fr; }
+    /* --- AJUSTE CONTACTO --- */
+    .contact-grid { 
+        grid-template-columns: 1fr; 
+        gap: 4rem;
+    }
+    .contact-info {
+        text-align: center;
+    }
     
     .portfolio-tabs {
         display: grid;
@@ -402,14 +409,20 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
     .hero-page-content h1 { font-size: 3.5rem !important; }
     .cta-banner h5 { font-size: 1.4rem;}
 
-    /* --- INICIO DE LA CORRECCIÓN CONTACTO --- */
-    .contact-form-wrapper .contact-form {
-        display: none; /* Oculta el formulario original en móvil */
+    /* --- CORRECCIÓN IMAGEN PRE-FOOTER --- */
+    .cta-banner {
+        background-attachment: scroll; /* Mejora rendimiento en móviles */
     }
-    .whatsapp-contact-wrapper {
-        display: block; /* Muestra el botón de WhatsApp en móvil */
+
+    /* --- CORRECCIÓN CONTACTO --- */
+    .contact-form .form-group {
+        flex-direction: column;
+        gap: 0;
+        margin-bottom: 0;
     }
-    /* --- FIN DE LA CORRECCIÓN --- */
+    .contact-form input, .contact-form textarea {
+        margin-bottom: 1.5rem;
+    }
 }
 
 @media (max-width: 576px) {
@@ -417,9 +430,7 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
     .treatment-card:nth-child(n) { grid-column: auto; grid-row: auto; }
     .testimonial { padding: 0 1rem; }
     .slider-btn { display: none; }
-    .contact-form .form-group { flex-direction: column; gap: 0; }
-    .contact-form .form-group input { margin-bottom: 1.5rem; }
-    .contact-form-wrapper { padding: 2rem; }
+    .contact-form-wrapper { padding: 2.5rem; }
     .service-grid--2-cols { grid-template-columns: 1fr; }
 }
 
@@ -444,8 +455,12 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
 /* =================================
    PÁGINA DE CONTACTO
    ================================= */
-.contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 6rem; align-items: flex-start; }
-.contact-info h2 {
+.contact-grid { 
+    display: grid; 
+    grid-template-columns: 1fr; /* Asegúrate de que aquí ponga 1fr */
+    gap: 4rem; 
+    align-items: flex-start; 
+}.contact-info h2 {
     font-size: 3rem;
     margin-bottom: 1.5rem;
 }
@@ -466,18 +481,6 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
 .contact-form textarea { resize: vertical; }
 .contact-form button { width: 100%; padding: 1.8rem; }
 .map-section { width: 100%; height: 400px; }
-
-/* --- INICIO DE LA CORRECCIÓN CONTACTO --- */
-.whatsapp-contact-wrapper {
-    display: none; /* Oculto en escritorio por defecto */
-    text-align: center;
-}
-.whatsapp-note {
-    font-size: 1.4rem;
-    color: var(--secondary-color);
-    margin-top: 1rem;
-}
-/* --- FIN DE LA CORRECCIÓN --- */
 
 
 /* =================================
