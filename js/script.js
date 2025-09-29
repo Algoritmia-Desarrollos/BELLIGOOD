@@ -7,16 +7,14 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 document.getElementById(id).innerHTML = data;
                 if (id === 'header-placeholder') initializeHeader();
-                if (id === 'footer-placeholder') document.getElementById('year').textContent = new Date().getFullYear();
             })
             .catch(error => console.error(`Error loading ${url}:`, error));
     }
     loadComponent('header-placeholder', 'header.html');
     loadComponent('footer-placeholder', 'footer.html');
 
-    // --- 2. LÓGICA DEL HEADER (MENÚ MÓVIL Y SCROLL) ---
+    // --- 2. LÓGICA DEL HEADER (MENÚ MÓVIL) ---
     function initializeHeader() {
-        const header = document.getElementById('header');
         const navToggle = document.getElementById('nav-toggle');
         const navMenu = document.getElementById('nav-menu');
         if (navToggle && navMenu) {
@@ -26,13 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
             link.addEventListener('click', () => {
                 if(navMenu && navMenu.classList.contains('active')) navMenu.classList.remove('active');
             });
-        });
-        window.addEventListener('scroll', () => {
-            if (header && window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else if (header) {
-                header.classList.remove('scrolled');
-            }
         });
     }
 
@@ -48,49 +39,35 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // --- 4. FILTRO DE GALERÍA MODIFICADO ---
+    // --- 4. FILTRO DE GALERÍA ---
     function initializePortfolioFilter() {
         const tabs = document.querySelectorAll('.portfolio-tabs .tab-link');
         const items = document.querySelectorAll('.portfolio-grid .portfolio-item');
-        const loadMoreBtn = document.getElementById('load-more-btn');
-
-        // Si no hay elementos, no hagas nada.
+        
         if (!tabs.length || !items.length) return;
 
-        // Ocultamos el botón "Ver Más" ya que no se usará.
-        if (loadMoreBtn) {
-            loadMoreBtn.style.display = 'none';
-        }
-
-        // Función para mostrar los items según el filtro.
         function showItems(filter) {
             items.forEach(item => {
                 const category = item.getAttribute('data-category');
-                // Si la categoría del item coincide con el filtro, se muestra. Si no, se oculta.
-                if (filter === category) {
-                    item.classList.remove('hidden');
-                } else {
-                    item.classList.add('hidden');
-                }
+                const isVisible = filter === 'all' || filter === category;
+                item.style.display = isVisible ? 'block' : 'none';
             });
         }
 
-        // Event listener para las pestañas.
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                // Actualiza la clase 'active' en la pestaña clickeada.
                 tabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
-                
-                // Obtiene el filtro y muestra los items correspondientes.
                 const filter = tab.getAttribute('data-filter');
                 showItems(filter);
             });
         });
-
-        // Estado inicial al cargar la página: muestra "uñas".
-        // Esto coincide con el botón que tiene la clase 'active' en el HTML.
-        showItems('unas');
+        
+        // Muestra la categoría activa al inicio
+        const activeTab = document.querySelector('.portfolio-tabs .tab-link.active');
+        if (activeTab) {
+            showItems(activeTab.getAttribute('data-filter'));
+        }
     }
     initializePortfolioFilter();
 
@@ -121,15 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, { threshold: 0.1 });
     animatedElements.forEach(el => observer.observe(el));
     
-    // --- 7. LÓGICA PARA FORMULARIO DE CONTACTO ---
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        // ... (código existente, no se muestra por brevedad)
-    }
-});
-
-
-// --- 8. LÓGICA PARA PESTAÑAS DE PRECIOS (LÁSER) ---
+    // --- 7. LÓGICA PARA PESTAÑAS DE PRECIOS (LÁSER) ---
     function initializePricingTabs() {
         const tabs = document.querySelectorAll('.pricing-tabs .tab-link');
         const contents = document.querySelectorAll('.pricing-content');
@@ -139,15 +108,42 @@ document.addEventListener('DOMContentLoaded', function() {
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 const targetId = tab.getAttribute('data-target');
-
-                // Ocultar todos los contenidos y quitar active de las pestañas
                 tabs.forEach(t => t.classList.remove('active'));
                 contents.forEach(c => c.classList.remove('active'));
-
-                // Mostrar el contenido y la pestaña seleccionada
                 tab.classList.add('active');
                 document.getElementById(targetId).classList.add('active');
             });
         });
     }
-    initializePricingTabs(); // Llamar a la función
+    initializePricingTabs();
+
+    // --- 8. NUEVA LÓGICA PARA FORMULARIO DE CONTACTO A WHATSAPP ---
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita que el formulario se envíe de la forma tradicional
+
+            // Recoger los valores de los campos
+            const nombre = document.getElementById('nombre').value;
+            const apellido = document.getElementById('apellido').value;
+            const telefono = document.getElementById('telefono').value;
+            const correo = document.getElementById('correo').value;
+            const consulta = document.getElementById('consulta').value;
+            
+            // Número de teléfono (asegúrate de que tenga el código de país y sin símbolos)
+            const whatsappNumber = '34659306394';
+
+            // Crear el mensaje formateado
+            const message = `Hola, quisiera hacer una consulta:\n\n*Nombre:* ${nombre} ${apellido}\n*Teléfono:* ${telefono}\n*Correo:* ${correo}\n\n*Consulta:*\n${consulta}`;
+            
+            // Codificar el mensaje para la URL
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Crear la URL final de WhatsApp
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            
+            // Abrir WhatsApp en una nueva pestaña
+            window.open(whatsappURL, '_blank');
+        });
+    }
+});
