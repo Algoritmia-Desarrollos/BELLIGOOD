@@ -46,7 +46,7 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
     margin-right: auto;
 }
 .section-header h2 {
-    font-size: 3.4rem;
+    font-size: 2.8rem;
     margin-bottom: 1rem;
 }
 .section-header p {
@@ -237,7 +237,7 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
 .testimonial-text {
     font-family: var(--font-secondary);
     font-style: italic;
-    font-size: 2.2rem;
+    font-size: 2rem;
     margin-bottom: 1rem;
 }
 .testimonial-author { font-weight: 700; color: var(--primary-color); }
@@ -397,9 +397,9 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
 }
 
 @media (max-width: 768px) {
-    .slide-content h2 { font-size: 4rem; }
+    .slide-content h2 { font-size: 3rem; }
     .cta-banner h2 { font-size: 2.8rem; }
-    .hero-page-content h1 { font-size: 4rem !important; }
+    .hero-page-content h1 { font-size: 3.5rem !important; }
     .cta-banner h5 { font-size: 1.4rem;}
 
     /* --- INICIO DE LA CORRECCIÓN CONTACTO --- */
@@ -429,7 +429,7 @@ h1, h2, h3, h4, h5 { font-family: var(--font-secondary); font-weight: 600; }
 .hero-page { height: 40vh; position: relative; color: var(--light-color); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; }
 .hero-page::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
 .hero-page-content { position: relative; z-index: 2; padding: 2rem; }
-.hero-page-content h1 { font-size: 4.5rem; }
+.hero-page-content h1 { font-size: 4rem; }
 .hero-page-content p { font-size: 1.8rem; font-family: var(--font-secondary); font-style: italic; opacity: 0.9; }
 .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
 .service-card-item { background: var(--light-color); padding: 2.5rem; border-radius: 8px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: transform 0.3s, box-shadow 0.3s; }
